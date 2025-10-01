@@ -9,12 +9,14 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold bg-cyan-400 text-black">
-      Hello world!
-      </h1> <br/> 
-      <Card/>
+    <h1 className="text-3xl font-bold bg-cyan-400 text-black">
+        Hello world!
+    </h1> 
+        
 
-         <br/> <Card/> <br/>
+    <br/> <Card username="chaiLelo" btnText="click me" /> <br/>
+    <Card username="Nexxer" btnText="visit me"/>
+    <Card/>
 
     
 
