@@ -1,13 +1,74 @@
 import { useState } from 'react'
 import './App.css'
+import {InputBox} from './components'
+import useCurrencyInfo from './hooks/useCurrencyInfo'
 
 function App() {
 
+  const [amount, setAmount] = useState(0)
+  const [from, setFrom] = useState("inr")
+  const [to, setTo] = useState("usd")
+  const [convertedAmount, setConvertedAmount] = useState(0)
+
+  const currencyInfo = useCurrencyInfo(from)
+
+  const options = Object.keys(currencyInfo)
+
+  const swap = () => {
+    setFrom(to)
+    setTo(from)
+    setConvertedAmount(amount)
+    setAmount(convertedAmount)
+  }
+
+  const convert = () =>  {
+    setConvertedAmount(amount*currencyInfo[to])
+  }
+
   return (
-    <>
-      <h1 className='text-3xl bg-orange-500'>Currency Converter</h1>
-    </>
-  )
+        <div
+            className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+            style={{
+                backgroundImage: `url('https://lh3.googleusercontent.com/gg-dl/AJfQ9KTeOUhlJTC8xbpQe1KC0FjXLtKYLArNIEFZ6SwkzbzZgBMsJ7OQHsRH-AyjB_my_ZWkV74_5W_-ixwxyyIGY_Ukv6nWutA2vV4U1qSAjq06tdQbizMaw6LOBK2po-M1iYzxPLgw4p6AwgVOZ1GGLcVPaNqgNb-r8YJcbBq8xtryKTW9gg=s1024?authuser=1')`,
+            }}
+        >
+            <div className="w-full">
+                <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                           
+                        }}
+                    >
+                        <div className="w-full mb-1">
+                            <InputBox
+                                label="From"
+                                
+                            />
+                        </div>
+                        <div className="relative w-full h-0.5">
+                            <button
+                                type="button"
+                                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                                
+                            >
+                                swap
+                            </button>
+                        </div>
+                        <div className="w-full mt-1 mb-4">
+                            <InputBox
+                                label="To"
+                                
+                            />
+                        </div>
+                        <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
+                            Convert 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App
